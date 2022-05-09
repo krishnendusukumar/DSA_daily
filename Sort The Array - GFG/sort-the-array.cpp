@@ -8,42 +8,42 @@ using namespace std;
 class Solution{
     public:
     
-    void swap(vector<int> &arr, int i, int j){
-        int temp = arr[j];
-        arr[j] = arr[i];
-        arr[i] = temp;
-    }
     
-    int partition(vector<int> &arr, int l , int r){
-        int i=l-1;
-        int j=l;
-        int pivot = arr[r];
+    int partition(vector<int> & arr, int l , int r){
+        
+        int  i=l-1, j=l, pivot=arr[r];
         
         for (j=l;j<r;j++){
-            if(arr[j] < pivot) 
-               i++, swap(arr, i, j);
+            if(arr[j]  < pivot)
+            i++, swap(arr[i], arr[j]);
+            
         }
-        swap(arr, i+1, j);
+        swap(arr[i+1], arr[j]);
         return i+1;
-    }
-    
-    void quicksort(vector<int> &arr, int l, int r){
-    if(l<r)
-    {
-        int piv=partition(arr, l, r);
-    
-    quicksort(arr, l, piv-1);
-    quicksort(arr, piv+1, r);
         
     }
     
+    
+    void quicksort(vector<int> & arr , int l, int r){
+        
+        
+        if(l<r){
+            
+            int piv = partition(arr, l, r);
+            quicksort(arr, l, piv-1);
+            quicksort(arr, piv+1, r);
+            
+        }
+        
     }
     
-    vector<int> sortArr(vector<int> arr, int n){
+    vector<int> sortArr(vector<int>arr, int n){
     //complete the function here
     
     quicksort(arr, 0 , n-1);
     return arr;
+    
+    
     }
 };
 
