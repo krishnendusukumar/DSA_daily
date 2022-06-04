@@ -1,7 +1,11 @@
 class Solution {
     public:
    static bool cmp(pair<int,int>&a, pair<int,int>&b) {
-        return  (a.second==b.second) ? a.first>b.first : a.second<b.second;
+        if(a.second < b.second ) return true;
+       else if(a.second == b.second){
+           if(a.first > b.first) return true;
+       }
+       return false;
     }
     vector<int> frequencySort(vector<int>& nums) {
         map<int,int> m;
