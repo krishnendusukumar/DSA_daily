@@ -2,13 +2,10 @@ class Solution {
 public:
     
     void call(int i, vector<vector<int>> &ans, vector<int> &subset, int n, int k) {
-        
-        if(i > n)
-        {
         if(k == 0)
-            ans.push_back(subset);
-         return;
-        }
+        {    ans.push_back(subset);
+         return;}
+        if(i>n) return;
         subset.push_back(i);
         call(i+1, ans, subset, n, k - 1);
         subset.pop_back();
