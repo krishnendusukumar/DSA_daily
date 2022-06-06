@@ -5,6 +5,7 @@ public:
         if(k == 0)
         {    ans.push_back(subset);
          return;}
+        if(k>n-i+1) return;
         if(i>n) return;
         subset.push_back(i);
         call(i+1, ans, subset, n, k - 1);
