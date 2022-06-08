@@ -12,14 +12,12 @@ class Solution {
     {
         // code here
         long long sum = 0;
-        vector<int> v;
-        v.push_back(0);
-        v.push_back(1);
+        long long prev = 0, prev1 = 1;
         for (int i = 2;i <= n; i++){
-            long long element = (v[i-1] + v[i-2])%1000000007;
-            v.push_back(element);
+            long long element = (prev + prev1)%1000000007;
+            prev = prev1, prev1 = element;
         }
-        return v[v.size()-1];
+        return prev1;
         
     }
 };
