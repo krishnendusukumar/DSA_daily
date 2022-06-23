@@ -10,15 +10,11 @@ class Solution {
         }
          for(int i=0;i<a.length();i++){
             char c = a.charAt(i);
-            if(m.containsKey(c))
-            {
-                if(m.get(c)<=0)
-                    return false;
-                else
-                    m.put(c,m.get(c)-1);
-            }                
-            else
-                return false;
+            if(m.containsKey(c)){
+                if(m.get(c)<=0) return false;
+                else m.put(c,m.get(c)-1);
+            }
+            else return false;
         }
         return true;
     }
