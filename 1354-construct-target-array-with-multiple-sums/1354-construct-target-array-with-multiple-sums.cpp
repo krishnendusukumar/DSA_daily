@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool isPossible(vector<int>& target) {
-        unsigned int sum = 0;
+        long int sum = 0;
         priority_queue<int> q;
         for (int i=0;i<target.size();i++) 
             sum+=target[i], q.push(target[i]);
