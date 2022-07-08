@@ -1,12 +1,18 @@
 class Solution {
 public:
+    
     int climbStairs(int n) {
-        int prev2 = 1;
-        int prev = 1;
-        for (int i=2;i<=n;i++){
-            long long element = prev + prev2;
-            prev2 = prev, prev = element;
+       if(n == 0) return 0;
+        if(n == 1) return 1;
+        if(n == 2) return 2;
+        int one = 1;
+        int two = 2;
+        int res = 0;
+        for(int i=2;i<n;i++) {
+            res = one + two;
+            one = two;
+            two = res;
         }
-        return prev;
+        return res;
     }
 };
