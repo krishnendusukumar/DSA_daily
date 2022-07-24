@@ -10,29 +10,19 @@
 class Solution {
 public:
     
-    bool helper(TreeNode* root, TreeNode* i, vector<TreeNode*>& ans) {
-        if(root == nullptr) return false;
+    TreeNode* helper(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root == nullptr || root == p || root == q) return root;
         
-        ans.push_back(root);
-        if(root == i) return true;
+        TreeNode* left, *right;
+        left = helper(root->left, p, q);
+        right = helper(root->right, p, q);
         
-        if(helper(root->left, i, ans) || helper(root->right, i, ans)) return true;
-        
-        ans.pop_back();
-        return false;
+        if(left == nullptr) return right;
+        else if(right == nullptr) return left;
+        else return root;
     }
     
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        vector<TreeNode*> res, temp;
-        
-        helper(root, p, res);
-        helper(root, q, temp);
-        
-        TreeNode* ans = res[0];
-        for(int i = 0; i < temp.size() && i < res.size(); i++) {
-            if(res[i] == temp[i]) ans = res[i];
-            else return ans;
-        }
-        return ans;
+        return helper(root, p , q);
     }
 };
