@@ -31,7 +31,7 @@ public:
     
      
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        if(inorder.size() != postorder.size()) return nullptr;
+     
         
         map<int,int> m;
         for(int i = 0; i < inorder.size(); i++) m[inorder[i]] = i;
