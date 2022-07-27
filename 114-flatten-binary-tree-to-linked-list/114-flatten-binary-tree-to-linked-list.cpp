@@ -12,16 +12,49 @@
 class Solution {
 public:
     void flatten(TreeNode* root) {
+        TreeNode *curr = root;
         if(root == nullptr) return;
-        stack<TreeNode*> s;
-        s.push(root);
-        TreeNode* curr = root;
-        while(s.size()) {
-            curr = s.top(); s.pop();
-            if(curr->right) s.push(curr->right);
-            if(curr->left) s.push(curr->left);
-            if(s.size() > 0) curr -> right = s.top();
-            curr->left = nullptr;
+        while(curr) {
+            if(curr ->left != nullptr){
+            TreeNode *prev = curr->left;
+            while(prev->right) prev = prev->right;
+            prev->right = curr->right;
+            curr->right = curr->left;
+                curr->left = nullptr;
+            }
+            curr = curr ->right;
         }
     }
 };
+
+
+
+//  if (!root) {
+//         return;
+//     }
+    
+//     TreeNode* curr = root;
+//     while (curr != NULL) {
+//         if (curr->left) {
+//             TreeNode* prev = curr->left;
+//             while (prev->right) {
+//                 prev = prev->right;
+//             }
+//             prev->right = curr->right;
+//             curr->right = curr->left;
+//             curr->left = NULL;
+//         }
+//         curr = curr->right;
+
+// //        1
+// //       / \
+// //      2   3
+// //     / \   \ 
+// //    4   6    5
+// //            / \
+// //           7    6
+           
+           
+// //            1 
+           
+// //            1 2 4 6 3 5 7 6
