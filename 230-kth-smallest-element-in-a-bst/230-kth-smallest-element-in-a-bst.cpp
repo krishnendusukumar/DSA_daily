@@ -9,13 +9,33 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+
+
 class Solution {
 public:
-   int kthSmallest(TreeNode* root, int& k) {
-    if (root) {
-        int x = kthSmallest(root->left, k);
-        return !k ? x : !--k ? root->val : kthSmallest(root->right, k);
+    int kthSmallest(TreeNode* root, int k) {
+        int ans = -1;
+        TreeNode* curr=root,*pre;
+        while(curr){
+            if(curr->left==NULL){
+                k--;
+                if(k==0) ans = curr->val;
+                curr=curr->right;
+            }else{
+                pre=curr->left;
+                while(pre->right && pre->right!=curr) pre=pre->right;
+                if(!pre->right){
+                    pre->right=curr;
+                    curr=curr->left;
+                }else{
+                    pre->right=NULL;
+                    k--;
+                    if(k==0) ans = curr->val;
+                    curr=curr->right;
+                }
+            }
+        }
+        return ans;
     }
-       return -1;
-}
 };
