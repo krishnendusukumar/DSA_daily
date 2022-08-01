@@ -10,26 +10,29 @@
  * };
  */
 class Solution {
+    private:
+    TreeNode* first, *last, *middle, *prev;
 public:
-	TreeNode* firstMistake, *secondMistake, *pre;
-	void recoverTree(TreeNode* root) {
-		pre = new TreeNode(INT_MIN);
-		inorder(root);
-		swap(firstMistake->val, secondMistake->val);
-	}
-
-	void inorder(TreeNode* root) {
-		if(root == nullptr) 
-			return;
-
-		inorder(root->left);
-
-		if(firstMistake == nullptr && root->val < pre->val)
-			firstMistake = pre;
-		if(firstMistake != nullptr && root->val < pre->val)
-			secondMistake = root;
-		pre = root;
-
-		inorder(root->right);
-	}
+    void inorder(TreeNode* root) {
+        if(root == nullptr) return;
+        inorder(root->left);
+        if(prev != nullptr && root->val < prev->val) {
+            if(first){
+                last = root;
+            }
+            else {
+                first = prev;
+                middle = root;
+            }
+        }
+        else prev = root;
+        inorder(root->right);
+    }
+    void recoverTree(TreeNode* root) {
+        prev = new TreeNode(INT_MIN);
+        first = last = middle = nullptr;
+        inorder(root);
+        if(first && last) swap(first->val, last->val);
+        else swap(first->val, middle->val);
+    }
 };
