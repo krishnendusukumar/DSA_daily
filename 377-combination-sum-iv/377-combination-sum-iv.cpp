@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    int helper(vector<int>& nums, int target, int sum, vector<long long>& dp) {
+    int helper(vector<int>& nums, int target, int sum, vector<unsigned int>& dp) {
         if(sum > target) return 0;
         if(sum == target) return 1;
         
@@ -15,7 +15,7 @@ public:
     }
     
     int combinationSum4(vector<int>& nums, int target) {
-        vector<long long> dp(target + 1,-1);
+        vector<unsigned int> dp(target + 1,-1);
         return helper(nums,target, 0, dp);
     }
 };
