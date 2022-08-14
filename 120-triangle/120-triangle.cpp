@@ -1,22 +1,22 @@
 class Solution {
 public:
     
-    int helper(int i, int j, vector<vector<int>>& triangle, vector<vector<int>>& dp) {
+    int helper(vector<vector<int>>& triangle, vector<vector<int>>& dp, int i, int j) {
+        if(i == triangle.size() || j == triangle[i].size()) return 1e9;
         if(i == triangle.size()-1) return triangle[i][j];
-        else if(dp[i][j] != -1) return dp[i][j];
-        int left = 0, right = 0;
-        left = triangle[i][j] + helper(i+1, j, triangle, dp);
-        right = triangle[i][j] + helper(i+1, j+1, triangle, dp);
-        return  dp[i][j] = min(left, right);
+        
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int bottom = 1e9, right = 1e9;
+        bottom = helper(triangle, dp, i+1, j);
+        if(j < triangle[i].size()) right = helper(triangle, dp, i+1, j+1);
+
+        return dp[i][j] = triangle[i][j] + min(right, bottom);
     }
     
     int minimumTotal(vector<vector<int>>& triangle) {
-        vector<int> dp(triangle.back());
-        for(int i=triangle.size()-2;i>=0;i--){
-            for(int j=0;j<triangle[i].size();j++){
-                    dp[j]=triangle[i][j]+min(dp[j], dp[j+1]);
-            }
-        }
-        return dp[0];
+        vector<vector<int>> dp(triangle.size(), vector<int>(triangle.size(), -1));
+        
+        return helper(triangle, dp, 0, 0);
     }
 };
