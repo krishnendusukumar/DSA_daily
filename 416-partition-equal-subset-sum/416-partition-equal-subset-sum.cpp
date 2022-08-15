@@ -36,18 +36,18 @@ public:
         int sum = 0;
         for (auto i: nums) sum+= i;
         if(sum % 2 != 0) return false;
-        vector<vector<bool>> dp(nums.size(), vector<bool>(sum/2+1, 0));
-            for(int i = 0; i < nums.size(); i++) dp[i][0] = true;
-            if(sum/2 >= nums[0]) 
-                dp[0][nums[0]] = true;
+        vector<bool> dp(sum/2+1, 0), temp(sum/2+1, 0);
+            dp[0] = temp[0] = true;
+        if(sum/2 >= nums[0]) temp[nums[0]] = true;
             for(int i = 1; i < nums.size(); i++) {
                 for(int target = 1; target <= sum/2; target++) {
                     bool take = false; 
-                    bool not_take = dp[i-1][target];
-                    if(target >= nums[i]) take = dp[i-1][target - nums[i]];
-                    dp[i][target] = take or not_take;
+                    bool not_take = dp[target];
+                    if(target >= nums[i]) take = dp[target - nums[i]];
+                    temp[target] = take or not_take;
                 }
+                dp = temp;
             }
-        return dp[nums.size()-1][sum/2];
+        return dp[sum/2];
     }
 };
