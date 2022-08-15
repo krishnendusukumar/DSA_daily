@@ -11,12 +11,43 @@ public:
     if(helper(arr, k-arr[i],i-1, dp) || helper(arr, k, i-1, dp)) return dp[i][k] = 1;
     else return dp[i][k] = 0;
 }
+//     int totalsum=0;
+//         int n=arr.size();
+//         for(auto &it:arr)totalsum+=it;
+//         if(totalsum %2 !=0)return 0;
+//         int k=totalsum/2;
+//         vector<vector<bool>>dp(n,vector<bool>(k +1,0));
+//         for(int i=0;i<n;i++)dp[i][0]=true;
+//         if(k>=arr[0])
+//             dp[0][arr[0]]=true;
+        
+//         for(int idx=1;idx<n;idx++){
+//             for(int target=1;target<=k;target++){
+//                 bool take=0,nottake=0;
+//                 nottake= dp[idx-1][target];
+//                 if(target>=arr[idx])
+//                     take=dp[idx-1][target-arr[idx]];
+                
+//                  dp[idx][target]=take || nottake;
+//             }
+//         }
     
     bool canPartition(vector<int>& nums) {
         int sum = 0;
         for (auto i: nums) sum+= i;
-        vector<vector<int>> dp(200+1, vector<int>(sum/2+1, -1));
-        if(sum % 2 == 0) return helper(nums, sum/2, nums.size()-1, dp);
-        else return false;
+        if(sum % 2 != 0) return false;
+        vector<vector<bool>> dp(nums.size(), vector<bool>(sum/2+1, 0));
+            for(int i = 0; i < nums.size(); i++) dp[i][0] = true;
+            if(sum/2 >= nums[0]) 
+                dp[0][nums[0]] = true;
+            for(int i = 1; i < nums.size(); i++) {
+                for(int target = 1; target <= sum/2; target++) {
+                    bool take = false; 
+                    bool not_take = dp[i-1][target];
+                    if(target >= nums[i]) take = dp[i-1][target - nums[i]];
+                    dp[i][target] = take or not_take;
+                }
+            }
+        return dp[nums.size()-1][sum/2];
     }
 };
