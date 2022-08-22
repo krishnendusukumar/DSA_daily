@@ -25,12 +25,11 @@ public:
                 pq.push({nums[idx+1] + (subt - nums[idx]), idx + 1});
             }
         }
-         vector<long long>ans;
-        ans.push_back(sum);
+        long long ans = sum;
         for(long long subt:subtract) {
-            ans.push_back(sum - subt);
+            ans = (sum - subt);
         }
         //return Kth largest sum 
-        return ans[k-1];
+        return ans;
     }
 };
