@@ -19,19 +19,19 @@ public:
         string leftt = helper(root->left);
         string rightt = helper(root->right);
         
-        if(leftt == "" && rightt == "") roott = roott;
-        else {
-            if(leftt != "" && rightt == "") {
-                roott += "(";
-                roott += leftt;
-                roott += ")";
-            }
-            else  {
-                roott += "(";
+        
+        if(rightt != "") {
+            roott += "(";
                 roott += leftt;
                 roott += ")";
                 roott += "(";
                 roott += rightt;
+                roott += ")";
+        }
+        else {
+            if(leftt != "") {
+                roott += "(";
+                roott += leftt;
                 roott += ")";
             }
         }
@@ -40,7 +40,6 @@ public:
     }
     
     string tree2str(TreeNode* root) {
-        string s = "";
         return helper(root);
     }
 };
