@@ -7,20 +7,20 @@ public:
         int i = 0, j = n-1;
         int count= 0, counter = 0;
         int score = 0;
+        int res= 0;
         while(i <= j) {
             if(tokens[i] <= power) {
-                score++;
+                // score++;
                 power -= tokens[i++];
-                count++;
+                res = max(res, ++score);
             }
             else if(score > 0){
-                if(i == j) return score;
+                // if(i == j) return score;
                 score--;
                 power += tokens[j--];
-                counter++;
             }
-            else return score;
+            else break;
         }
-        return score;
+        return res;
     }
 };
