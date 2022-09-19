@@ -1,24 +1,22 @@
 class Solution {
 public:
-vector<vector<int> >dp;
-int minDistance(string& word1, string& word2) {
-	// dp[i][j] will denote minimum steps required to equalize word1[i:end] and word[2:j:end]
-	dp.resize(size(word1) + 1, vector<int>(size(word2) + 1, 1000));
-	return solve(word1, word2, 0, 0);
-}
-int solve(string &w1, string &w2, int i, int j) {
-	if(i == size(w1) && j == size(w2)) return 0;
-	if(i == size(w1) || j == size(w2)) return max(size(w1) - i, size(w2) - j);
-	if(dp[i][j] != 1000) return dp[i][j];  // directly return stored answer if already computed before
-	if(w1[i] == w2[j]) return solve(w1, w2, i + 1, j + 1);
-	return dp[i][j] = 1 + min(solve(w1, w2, i + 1, j), solve(w1, w2, i, j + 1));
-}
+
+    int helper(string s, string t, vector<vector<int>>& dp, int i, int j) {
+        if(i < 0 || j < 0) return 0;
+        
+        if(dp[i][j] != -1) return dp[i][j];
+        if(s[i] == t[j]) return dp[i][j] = 1 + helper(s,t, dp, i-1, j-1);
+        return dp[i][j] = max(helper(s,t, dp, i-1, j) , helper(s, t, dp, i, j-1));
+    }
+    
+    
+    int minDistance(string s, string t) {
+        int n = s.size();
+        int m = t.size();
+        
+        vector<vector<int>> dp(n+1, vector<int>(m+1, -1));
+        
+        int ans = helper(s, t, dp, n-1, m-1);
+        return ((n-ans) + (m-ans));
+    }
 };
-
-// leetcode 
-
-// etco
-
-// l
-// eetcode
-// // leetcode
