@@ -1,27 +1,18 @@
 class MyHashMap {
 public:
 
-vector<list<pair<int , int>>> m ;
-int siz ;
-
-public:
-    MyHashMap()
-    {
-        siz = 1000 ;
-
-        m.resize(siz) ;
-
+    vector<list<pair<int,int>>> m;
+    int size ;
+    
+    MyHashMap() {
+        size = 1000;
+        m.resize(size);
     }
-
-    // Our hash function calculates the index by taking the modulo with the siz
-
-    int hash(int key)
-    {
-        return (key % siz) ;
+    
+    int hash(int key) {
+        return (key%size);
     }
-
-    // search(key) returns an iterator pointing to the key, else we return an iterator pointing to the End of the LinkedList
-
+    
         list<pair<int,int>> :: iterator search(int key) 
     {
         int i = hash(key);
