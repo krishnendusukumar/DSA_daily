@@ -26,41 +26,17 @@ public:
 
     // put(key , value) inserts the Value with it's corresponding Key
 
-    void put(int key, int value)
-    {
-        // We first calculate the index i using hash()
-
-        int i = hash(key) ;
-
-        // We first remove the key if it's present
-
-        remove(key) ;
-
-        // Otherwise, we insert the {key , value} pair inside the m[i] Doubly Linked List
-
-        m[i].push_back({key , value}) ;
+    void put(int key, int value) {
+        int i = hash(key);
+        remove(key);
+        m[i].push_back({key, value});
     }
-
-    // get(key) function returns -1 if the key is not present, else returns the Value associated with the Key
-
-    int get(int key)
-    {
-        int i = hash(key) ;
-
-        // We first check whether the key is present or not using search() function
-
-        list<pair<int , int>> :: iterator it = search(key) ;
-
-        // If the iterator returned by search() is equal to m[i].end() , it implies the Key is not present, so we return -1
-
-        if(it == m[i].end() )
-            return -1 ;
-
-        // Otherwise, we return the Value associated with the key using it -> second
-
-        else
-            return it -> second ;
-
+    
+    int get(int key) {
+        int i = hash(key);
+        list<pair<int,int>> :: iterator it = search(key);
+        if(it == m[i].end()) return -1;
+        return it->second;
     }
 
     void remove(int key)
