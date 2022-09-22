@@ -25,17 +25,25 @@ public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         if(head == nullptr || head -> next == nullptr || k == 1) return head;
         int sum = k;
-        ListNode* end = head, *newHead, *start = head;
-        while(sum != 1) {
-            end = end->next;
-            sum--;
-            if(end == nullptr) return head;
+        ListNode* e = head , *dummy = new ListNode(-1), *beforeStart;
+        dummy -> next = head;
+        beforeStart = dummy;
+        int i = 0;
+        while(e != nullptr) {
+            i++;
+            if(i % k == 0) {
+                ListNode* s = dummy->next, *temp = e -> next;
+                rev(s, e);
+                dummy->next = e;
+                s->next = temp;
+                dummy =  s;
+                e = temp;
+            }
+            else {
+                e = e->next;
+            }
         }
-        newHead = reverseKGroup(end->next, k);
-        rev(start, end);
-        start -> next = newHead;
-        
-        return end;
+        return beforeStart->next;
         
     }
 };
